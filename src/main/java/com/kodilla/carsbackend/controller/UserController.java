@@ -41,4 +41,9 @@ public class UserController {
     public void deleteUser(@PathVariable Long userId) throws UserNotFoundException {
         userService.deleteUserById(userId);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/users/getUsersByLastName")
+    public List<UserDto> getUsersByLastName(@RequestParam String lastName) {
+        return userService.getUsersByLastName(lastName);
+    }
 }

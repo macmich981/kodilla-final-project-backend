@@ -36,8 +36,8 @@ public class UserService {
         User user = userRepository.findById(userDto.getId()).orElseThrow(() -> new UserNotFoundException(ERROR_MSG));
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setCardId(userDto.getCardId());
-        user.setDrivingLicense(userDto.getDrivingLicense());
+        user.setCardIdNumber(userDto.getCardIdNumber());
+        user.setDrivingLicenseNumber(userDto.getDrivingLicenseNumber());
         return userMapper.mapToUserDto(userRepository.save(user));
     }
 

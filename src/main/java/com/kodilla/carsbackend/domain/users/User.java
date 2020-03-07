@@ -30,11 +30,11 @@ public class User {
     private String lastName;
 
     @Column
-    private String cardId;
+    private String cardIdNumber;
 
     @Column
     @NotNull
-    private String drivingLicense;
+    private String drivingLicenseNumber;
 
     @OneToMany(
             mappedBy = "user",
@@ -43,10 +43,10 @@ public class User {
     )
     private List<Rent> rents = new ArrayList<>();
 
-    public User(String firstName, String lastName, String cardId, String drivingLicense) {
+    public User(String firstName, String lastName, String cardIdNumber, String drivingLicenseNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.cardId = cardId;
-        this.drivingLicense = drivingLicense;
+        this.cardIdNumber = cardIdNumber;
+        this.drivingLicenseNumber = drivingLicenseNumber;
     }
 }

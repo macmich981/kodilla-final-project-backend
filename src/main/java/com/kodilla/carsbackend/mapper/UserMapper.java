@@ -12,16 +12,16 @@ public class UserMapper {
     public User mapToUser(final UserDto userDto) {
         return new User(userDto.getFirstName(),
                 userDto.getLastName(),
-                userDto.getCardId(),
-                userDto.getDrivingLicense());
+                userDto.getCardIdNumber(),
+                userDto.getDrivingLicenseNumber());
     }
 
     public UserDto mapToUserDto(final User user) {
         return new UserDto(user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getCardId(),
-                user.getDrivingLicense());
+                user.getCardIdNumber(),
+                user.getDrivingLicenseNumber());
     }
 
     public List<UserDto> mapToUserDtoList(final List<User> userList) {
@@ -30,8 +30,8 @@ public class UserMapper {
                         new UserDto(u.getId(),
                                 u.getFirstName(),
                                 u.getLastName(),
-                                u.getCardId(),
-                                u.getDrivingLicense()))
+                                u.getCardIdNumber(),
+                                u.getDrivingLicenseNumber()))
                 .collect(Collectors.toList());
     }
 }
