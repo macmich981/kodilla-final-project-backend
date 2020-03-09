@@ -40,7 +40,7 @@ public class CarController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/cars/{carId}")
-    public void deleteCarCopy(@PathVariable Long carId) throws CarNotFoundException {
+    public void deleteCar(@PathVariable Long carId) throws CarNotFoundException {
         carService.deleteCarById(carId);
     }
 }

@@ -48,7 +48,8 @@ public class UserControllerTest {
         when(userService.getAllUsers()).thenReturn(userDtos);
 
         //When & Then
-        mockMvc.perform(get("/v1/users").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/users")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id", is(1)))
@@ -152,7 +153,6 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$[0].lastName", is("Kowalski")))
                 .andExpect(jsonPath("$[0].cardIdNumber", is("ATX 123456")))
                 .andExpect(jsonPath("$[0].drivingLicenseNumber", is("QWERTY")))
-                .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[1].id", is(2)))
                 .andExpect(jsonPath("$[1].firstName", is("Adam")))
                 .andExpect(jsonPath("$[1].lastName", is("Kowalski")))
