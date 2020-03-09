@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class CarMapper {
-    public Car mapToCopy(final CarDto carDto) {
+    public Car mapToCar(final CarDto carDto) {
         return new Car(
                 carDto.getRegistrationNumber(),
                 carDto.getProductionYear());
     }
 
-    public CarDto mapToCopyDto(final Car car) {
+    public CarDto mapToCarDto(final Car car) {
         return new CarDto(
                 car.getId(),
                 car.getCarBrand().getId(),

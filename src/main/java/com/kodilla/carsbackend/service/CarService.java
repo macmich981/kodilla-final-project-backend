@@ -37,9 +37,9 @@ public class CarService {
         if (!carValidator.validateRegistrationNumber(carDto.getRegistrationNumber())) {
             throw new CarRegistrationNumberException("Given registration number already exist");
         }
-        Car car = carMapper.mapToCopy(carDto);
+        Car car = carMapper.mapToCar(carDto);
         car.setCarBrand(carBrand);
-        carBrand.getCarCopies().add(car);
+        carBrand.getCars().add(car);
         return carRepository.save(car);
     }
 
@@ -48,13 +48,13 @@ public class CarService {
     }
 
     public CarDto getCarById(final Long id) throws CarNotFoundException {
-        return carMapper.mapToCopyDto(carRepository.findById(id).orElseThrow(() -> new CarNotFoundException(ERROR_MSG)));
+        return carMapper.mapToCarDto(carRepository.findById(id).orElseThrow(() -> new CarNotFoundException(ERROR_MSG)));
     }
 
     public CarDto updateCarStateToDamaged(final Long id) throws CarNotFoundException {
         Car car = carRepository.findById(id).orElseThrow(() -> new CarNotFoundException(ERROR_MSG));
         car.setState(State.DAMAGED.name());
-        return carMapper.mapToCopyDto(carRepository.save(car));
+        return carMapper.mapToCarDto(carRepository.save(car));
     }
 
     public void deleteCarById(final Long id) throws CarNotFoundException {

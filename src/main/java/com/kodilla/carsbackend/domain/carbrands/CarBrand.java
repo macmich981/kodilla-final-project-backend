@@ -33,7 +33,7 @@ public class CarBrand {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<Car> carCopies = new ArrayList<>();
+    private List<Car> cars = new ArrayList<>();
 
     public CarBrand(String brandName, int constructionYear) {
         this.brandName = brandName;
