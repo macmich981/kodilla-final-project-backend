@@ -28,7 +28,7 @@ public class Rent {
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "CAR_COPY_ID")
+    @JoinColumn(name = "CAR_ID")
     private Car car;
 
     @NotNull
