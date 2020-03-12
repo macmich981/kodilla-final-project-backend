@@ -33,8 +33,8 @@ public class UserServiceTest {
     public void testGetAllUsers() {
         //Given
         List<User> users = new ArrayList<>();
-        users.add(new User(1L, "Test name", "Test lastname", "AAA 111111", "QWERTY", new ArrayList<>()));
-        users.add(new User(2L, "Test name 1", "Test lastname 1", "AAA 222222", "ZXSPEC", new ArrayList<>()));
+        users.add(new User("Test name", "Test lastname", "AAA 111111", "QWERTY"));
+        users.add(new User("Test name 1", "Test lastname 1", "AAA 222222", "ZXSPEC"));
 
         List<UserDto> userDtos = new ArrayList<>();
         userDtos.add(new UserDto(1L, "Test name", "Test lastname", "AAA 111111", "QWERTY"));
@@ -53,7 +53,7 @@ public class UserServiceTest {
     @Test
     public void testGetUserById() throws Exception {
         //Given
-        User user = new User(1L, "Test name", "Test lastname", "AAA 111111", "QWERTY", new ArrayList<>());
+        User user = new User("Test name", "Test lastname", "AAA 111111", "QWERTY");
         Optional<User> optionalUser = Optional.of(user);
         UserDto userDto = new UserDto(1L, "Test name", "Test lastname", "AAA 111111", "QWERTY");
 
