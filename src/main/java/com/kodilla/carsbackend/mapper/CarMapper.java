@@ -24,7 +24,7 @@ public class CarMapper {
                 car.getState());
     }
 
-    public List<CarDto> mapToCopyDtoList(final List<Car> carList) {
+    public List<CarDto> mapToCarDtoList(final List<Car> carList) {
         return carList.stream()
                 .map(cb ->
                         new CarDto(

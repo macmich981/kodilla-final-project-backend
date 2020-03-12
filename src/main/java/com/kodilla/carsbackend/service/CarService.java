@@ -44,7 +44,7 @@ public class CarService {
     }
 
     public List<CarDto> getAllCars() {
-        return carMapper.mapToCopyDtoList(carRepository.findAll());
+        return carMapper.mapToCarDtoList(carRepository.findAll());
     }
 
     public CarDto getCarById(final Long id) throws CarNotFoundException {
