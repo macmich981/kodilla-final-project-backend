@@ -32,6 +32,7 @@ public class UserMapperTest {
         assertEquals("Test lastname", user.getLastName());
         assertEquals("AAA 000000", user.getCardIdNumber());
         assertEquals("QWERTY", user.getDrivingLicenseNumber());
+        assertEquals(0, user.getRents().size());
     }
 
     @Test
