@@ -101,13 +101,17 @@ public class CarControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.carBrandId", is(1)))
+                .andExpect(jsonPath("$.registrationNumber", is("DZA 123456")))
+                .andExpect(jsonPath("$.productionYear", is(2000)))
                 .andExpect(jsonPath("$.state", is("DAMAGED")));
     }
 
     @Test
     public void shouldCreateCar() throws Exception {
         //Given
-        Car car = new Car(1L, "DZA 123456", 2000, State.AVAILABLE.name(), new Rent(), new CarBrand());
+        Car car = new Car("DZA 123456", 2000);
         CarDto carDto = new CarDto(1L, 1L, "DZA 123456", 2000, State.AVAILABLE.name());
 
         when(carMapper.mapToCar(carDto)).thenReturn(car);

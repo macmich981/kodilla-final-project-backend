@@ -109,7 +109,7 @@ public class UserControllerTest {
     @Test
     public void shouldCreateUser() throws Exception {
         //Given
-        User user = new User(1L, "Jan", "Kowalski", "ATX 123456", "QWERTY", new ArrayList<>());
+        User user = new User("Jan", "Kowalski", "ATX 123456", "QWERTY");
         UserDto userDto = new UserDto(1L, "Jan", "Kowalski", "ATX 123456", "QWERTY");
 
         when(userMapper.mapToUser(any(UserDto.class))).thenReturn(user);

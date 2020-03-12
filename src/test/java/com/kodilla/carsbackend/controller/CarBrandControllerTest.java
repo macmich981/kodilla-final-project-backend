@@ -79,7 +79,7 @@ public class CarBrandControllerTest {
     @Test
     public void shouldCreateCarBrand() throws Exception {
         //Given
-        CarBrand carBrand = new CarBrand(1L, "Test brand", 2000, new ArrayList<>());
+        CarBrand carBrand = new CarBrand("Test brand", 2000);
         CarBrandDto carBrandDto = new CarBrandDto(1L, "Test brand", 2000);
 
         when(carBrandMapper.mapToCarBrand(carBrandDto)).thenReturn(carBrand);
