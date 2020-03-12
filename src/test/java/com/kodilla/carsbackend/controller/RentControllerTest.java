@@ -1,5 +1,7 @@
 package com.kodilla.carsbackend.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kodilla.carsbackend.domain.rents.Rent;
 import com.kodilla.carsbackend.domain.rents.RentDto;
 import com.kodilla.carsbackend.mapper.RentMapper;
 import com.kodilla.carsbackend.service.RentService;
@@ -20,6 +22,7 @@ import java.util.TimeZone;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -92,5 +95,95 @@ public class RentControllerTest {
                 .andExpect(jsonPath("$.carId", is(1)))
                 .andExpect(jsonPath("$.rentDate", is("2020-03-10T07:00:00.000+0000")))
                 .andExpect(jsonPath("$.returnDate", is("2020-03-20T07:00:00.000+0000")));
+    }
+
+    @Test
+    public void shouldUpdateRentReturnDate() throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("PST"));
+        Date rentDate = sdf.parse("2020-03-10");
+        Date returnDate = sdf.parse("2020-03-20");
+        Date updatedReturnDate = sdf.parse("2020-04-17");
+
+        RentDto rentDto = new RentDto(1L, 1L, 1L, rentDate, returnDate);
+        RentDto updatedRentDto = new RentDto(1L, 1L, 1L, rentDate, updatedReturnDate);
+
+        when(rentService.updateRentReturnDate(any(RentDto.class))).thenReturn(updatedRentDto);
+
+        //Gson doesn't convert date object to json properly(?)
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonContent = objectMapper.writeValueAsString(rentDto);
+
+        mockMvc.perform(put("/v1/rents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.userId", is(1)))
+                .andExpect(jsonPath("$.carId", is(1)))
+                .andExpect(jsonPath("$.rentDate", is("2020-03-10T07:00:00.000+0000")))
+                .andExpect(jsonPath("$.returnDate", is("2020-04-17T07:00:00.000+0000")));
+    }
+
+    @Test
+    public void shouldReturnCar() throws Exception {
+        //Given
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("PST"));
+        Date rentDate = sdf.parse("2020-03-10");
+        Date returnDate = sdf.parse("2020-03-20");
+
+        RentDto rentDto = new RentDto(1L, 1L, 1L, rentDate, returnDate);
+
+        when(rentService.returnRentedCarById(rentDto.getId())).thenReturn(rentDto);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonContent = objectMapper.writeValueAsString(rentDto);
+
+        //When & Then
+        mockMvc.perform(put("/v1/rents/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.userId", is(1)))
+                .andExpect(jsonPath("$.carId", is(1)))
+                .andExpect(jsonPath("$.rentDate", is("2020-03-10T07:00:00.000+0000")))
+                .andExpect(jsonPath("$.returnDate", is("2020-03-20T07:00:00.000+0000")));
+    }
+
+    @Test
+    public void shouldAddRent() throws Exception {
+        //Given
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("PST"));
+        Date rentDate = sdf.parse("2020-03-10");
+        Date returnDate = sdf.parse("2020-03-20");
+
+        Rent rent = new Rent(rentDate, returnDate);
+        RentDto rentDto = new RentDto(1L, 1L, 1L, rentDate, returnDate);
+
+        when(rentMapper.mapToRent(any(RentDto.class))).thenReturn(rent);
+        when(rentService.saveRent(rentDto)).thenReturn(rent);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonContent = objectMapper.writeValueAsString(rentDto);
+
+        //When & Then
+        mockMvc.perform(post("/v1/rents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldDeleteRent() throws Exception {
+        //Given & When & Then
+        mockMvc.perform(delete("/v1/rents/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }

@@ -46,7 +46,7 @@ public class RentController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/rents/{rentId}")
-    public RentDto returnCarCopy(@PathVariable Long rentId) throws RentNotFoundException {
+    public RentDto returnCar(@PathVariable Long rentId) throws RentNotFoundException {
         return rentService.returnRentedCarById(rentId);
     }
 }
