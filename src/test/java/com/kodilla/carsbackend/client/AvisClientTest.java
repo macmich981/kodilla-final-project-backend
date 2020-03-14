@@ -1,12 +1,15 @@
 package com.kodilla.carsbackend.client;
 
+import com.google.gson.Gson;
+import com.kodilla.carsbackend.domain.AvisResponse;
+import com.kodilla.carsbackend.domain.Location;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,9 +21,12 @@ public class AvisClientTest {
     @Test
     public void testGetLocations() {
         //Given & When
-        String response = avisClient.getLocations("Avis", "PL", "Warsaw", "1");
+        List<Location> response = avisClient.getLocations("Avis", "PL", "Warsaw", "1");
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(response);
+
 
         //Then
-        System.out.println(response);
+        System.out.println(jsonContent);
     }
 }
