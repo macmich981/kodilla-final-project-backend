@@ -13,4 +13,10 @@ import lombok.NoArgsConstructor;
 public class Location {
     @JsonProperty("brand")
     private String brand;
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("airport_location")
+    private boolean airportLocation;
 }

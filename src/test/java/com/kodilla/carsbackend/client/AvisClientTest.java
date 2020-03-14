@@ -1,7 +1,6 @@
 package com.kodilla.carsbackend.client;
 
 import com.google.gson.Gson;
-import com.kodilla.carsbackend.domain.AvisResponse;
 import com.kodilla.carsbackend.domain.Location;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +23,6 @@ public class AvisClientTest {
         List<Location> response = avisClient.getLocations("Avis", "PL", "Warsaw", "1");
         Gson gson = new Gson();
         String jsonContent = gson.toJson(response);
-
 
         //Then
         System.out.println(jsonContent);
