@@ -1,7 +1,9 @@
 package com.kodilla.carsbackend.client;
 
-import com.kodilla.carsbackend.domain.AvisResponse;
-import com.kodilla.carsbackend.domain.Location;
+import com.kodilla.carsbackend.config.AvisConfig;
+import com.kodilla.carsbackend.domain.avis.AvisQueryDto;
+import com.kodilla.carsbackend.domain.avis.AvisResponse;
+import com.kodilla.carsbackend.domain.avis.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,17 +22,20 @@ public class AvisClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<Location> getLocations(final String brand, final String countryCode, final String keyword, final String transactionId) {
-        URI url = UriComponentsBuilder.fromHttpUrl("https://stage.abgapiservices.com/cars/locations/v1")
-                .queryParam("brand", brand)
-                .queryParam("country_code", countryCode)
-                .queryParam("keyword", keyword)
-                .queryParam("transaction_id", transactionId)
+    @Autowired
+    private AvisConfig avisConfig;
+
+    public List<Location> getLocations(AvisQueryDto avisQueryDto) {
+        URI url = UriComponentsBuilder.fromHttpUrl(avisConfig.getAvisApiEndpoint())
+                .queryParam("brand", avisQueryDto.getBrand())
+                .queryParam("country_code", avisQueryDto.getCountryCode())
+                .queryParam("keyword", avisQueryDto.getKeyword())
+                .queryParam("transaction_id", avisQueryDto.getTransactionId())
                 .build().encode().toUri();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("client_id", "a8c647e5498a40c6b5da6c3bf793879e");
-        headers.set("Authorization", "Bearer 0001v48ZI7YCZZ2q2BQHjCW746pC");
+        headers.set("client_id", avisConfig.getClientId());
+        headers.set("Authorization", avisConfig.getAuthorization());
 
         HttpEntity entity = new HttpEntity(headers);
         ResponseEntity<AvisResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, AvisResponse.class);

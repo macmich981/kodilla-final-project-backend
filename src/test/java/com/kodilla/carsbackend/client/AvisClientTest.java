@@ -1,7 +1,8 @@
 package com.kodilla.carsbackend.client;
 
 import com.google.gson.Gson;
-import com.kodilla.carsbackend.domain.Location;
+import com.kodilla.carsbackend.domain.avis.AvisQueryDto;
+import com.kodilla.carsbackend.domain.avis.Location;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class AvisClientTest {
     @Test
     public void testGetLocations() {
         //Given & When
-        List<Location> response = avisClient.getLocations("Avis", "PL", "Warsaw", "1");
+        AvisQueryDto avisQueryDto = new AvisQueryDto("Avis", "US", "New York", "1");
+        List<Location> response = avisClient.getLocations(avisQueryDto);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(response);
 

@@ -1,4 +1,4 @@
-package com.kodilla.carsbackend.domain;
+package com.kodilla.carsbackend.domain.avis;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
