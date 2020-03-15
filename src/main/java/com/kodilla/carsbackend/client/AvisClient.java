@@ -26,6 +26,14 @@ public class AvisClient {
     private AvisConfig avisConfig;
 
     public List<Location> getLocations(AvisQueryDto avisQueryDto) {
+        HttpHeaders headers = createHeaders();
+        HttpEntity entity = new HttpEntity(headers);
+
+        ResponseEntity<AvisResponse> response = restTemplate.exchange(createUrl(avisQueryDto), HttpMethod.GET, entity, AvisResponse.class);
+        return response.getBody().getLocations();
+    }
+
+    private URI createUrl(AvisQueryDto avisQueryDto) {
         URI url = UriComponentsBuilder.fromHttpUrl(avisConfig.getAvisApiEndpoint())
                 .queryParam("brand", avisQueryDto.getBrand())
                 .queryParam("country_code", avisQueryDto.getCountryCode())
@@ -33,12 +41,14 @@ public class AvisClient {
                 .queryParam("transaction_id", avisQueryDto.getTransactionId())
                 .build().encode().toUri();
 
+        return url;
+    }
+
+    private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("client_id", avisConfig.getClientId());
         headers.set("Authorization", avisConfig.getAuthorization());
 
-        HttpEntity entity = new HttpEntity(headers);
-        ResponseEntity<AvisResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, AvisResponse.class);
-        return response.getBody().getLocations();
+        return headers;
     }
 }

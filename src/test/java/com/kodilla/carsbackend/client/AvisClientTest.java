@@ -20,10 +20,12 @@ public class AvisClientTest {
 
     @Test
     public void testGetLocations() {
-        //Given & When
+        //Given
         AvisQueryDto avisQueryDto = new AvisQueryDto("Avis", "US", "New York", "1");
         List<Location> response = avisClient.getLocations(avisQueryDto);
         Gson gson = new Gson();
+
+        //When
         String jsonContent = gson.toJson(response);
 
         //Then
