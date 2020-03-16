@@ -21,7 +21,7 @@ public class AvisClientTest {
     @Test
     public void testGetLocations() {
         //Given
-        AvisQueryDto avisQueryDto = new AvisQueryDto("Avis", "US", "New York", "1");
+        AvisQueryDto avisQueryDto = new AvisQueryDto("Avis", "PL", "Warsaw", "1");
         List<Location> response = avisClient.getLocations(avisQueryDto);
         Gson gson = new Gson();
 
@@ -30,5 +30,14 @@ public class AvisClientTest {
 
         //Then
         System.out.println(jsonContent);
+    }
+
+    @Test
+    public void testCreateAuthorization() {
+        //Given & When
+        String token = avisClient.createAuthorization();
+
+        //Then
+        System.out.println(token);
     }
 }

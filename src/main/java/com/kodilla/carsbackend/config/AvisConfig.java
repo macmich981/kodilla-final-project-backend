@@ -13,6 +13,6 @@ public class AvisConfig {
     @Value("${avis.api.client_id}")
     private String clientId;
 
-    @Value("${avis.api.authorization}")
-    private String authorization;
+    @Value("${avis.api.client_secret}")
+    private String clientSecret;
 }
