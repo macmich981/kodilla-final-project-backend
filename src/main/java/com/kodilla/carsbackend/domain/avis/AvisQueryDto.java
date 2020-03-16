@@ -2,12 +2,14 @@ package com.kodilla.carsbackend.domain.avis;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class AvisQueryDto {
-    private final String brand;
-    private final String countryCode;
-    private final String keyword;
-    private final String transactionId;
+    private String brand;
+    private String countryCode;
+    private String keyword;
+    private String transactionId;
 }
